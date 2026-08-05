@@ -22,7 +22,7 @@ pipeline {
         stage('build docker image') {
             steps {
                 script {
-                    def imageName = env.BRANCH_NAME == 'main' ? 'nodemain:v1.0.' : 'nodedev:v1.0.'
+                    def imageName = env.BRANCH_NAME == 'main' ? 'nodemain:v1.0' : 'nodedev:v1.0'
                     sh "docker build -t ${imageName} ."
                 }
             }

@@ -29,8 +29,8 @@ pipeline {
         }
         stage('deploy') {
             steps {
-                sh 'docker stop $(docker ps -a -q)'
-                sh 'docker rm $(docker ps -a -q)'
+                sh 'docker stop $(docker ps -a -q) || true'
+                sh 'docker rm $(docker ps -a -q) || true'
             script {
                 if (env.BRANCH_NAME == 'main') {
                     sh 'docker run -d --expose 3000 -p 3000:3000 nodemain:v1.0'

@@ -37,6 +37,14 @@ pipeline {
                 }
             }
         }
+        stage ('Scan docker image for vulnabirites') {
+            steps {
+                script {
+                    def imageName = env.BRANCH_NAME == 'main' ? 'kvara007/nodemain:v1.0' : 'kvara007/nodedev:v1.0'
+                    sh "trivy image --exit-code 1 --severity LAW,MEDIUM,HIGH ${imageName}"
+                }
+            }
+        }
         stage('trigger deploy') {
             steps {
                 script {

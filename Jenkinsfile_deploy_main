@@ -1,0 +1,24 @@
+// These two pipelines will pull your images from repository and deploy them into matching env 
+// (Docker pull nodemain:v1.0 and docker pull nodedev:v1.0 for dev branch and next docker run -d -expose -p 3000:3000 your image). 
+// Please pay attention to the fact that you should fix your existing Multibranch pipeline with push stage.
+
+pipeline {
+    agent any
+    stages {
+        stage('Deploy main application') {
+            steps {
+                script {
+                    def containerName = 'node-main-container'
+                    def imageName = 'kvara007/nodemain:v1.0'
+                    def port = '3000'
+                     docker.withRegistry('', 'docker_creds') {
+                        sh "docker pull ${imageName}"
+                    }
+                    sh "docker stop ${containerName} || true"
+                    sh "docker rm ${containerName} || true"
+                    sh "docker run --name ${containerName} -d -p ${port} ${imageName}"
+                }
+            }
+        }
+    }
+}

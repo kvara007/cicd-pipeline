@@ -41,7 +41,7 @@ pipeline {
             steps {
                 script {
                     def imageName = env.BRANCH_NAME == 'main' ? 'kvara007/nodemain:v1.0' : 'kvara007/nodedev:v1.0'
-                    sh "trivy image --exit-code 0 --severity LOW,MEDIUM,HIGH ${imageName}"
+                    sh "trivy image --exit-code 0 --cache-backend memory --severity LOW,MEDIUM,HIGH ${imageName}"
                 }
             }
         }

@@ -38,13 +38,15 @@ pipeline {
             }
         }
         stage('trigger deploy') {
-            script {
+            steps {
+                script {
                 if (env.BRANCH_NAME == 'main') {
                     build job: 'Deploy_to_main', wait: false
                 }
-                else if {
+                else {
                     (env.BRANCH_NAME == 'main') {
                         build job: "Deploy_to_dev", wait: false
+                        }
                     }  
                 }
             }

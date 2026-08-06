@@ -44,9 +44,7 @@ pipeline {
                     build job: 'Deploy_to_main', wait: false
                 }
                 else {
-                    (env.BRANCH_NAME == 'main') {
                         build job: "Deploy_to_dev", wait: false
-                        }
                     }  
                 }
             }

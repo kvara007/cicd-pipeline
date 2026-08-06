@@ -27,7 +27,16 @@ pipeline {
                 }
             }
         }
-        stage('deploy') {
+        stage ('push image') {
+            steps {
+                script {
+                    def imageName = env.BRANCH_NAME == 'main' ? 'nodemain:v1.0' : 'nodedev:v1.0'
+                    docker.withRegisty('', 'docker_creds')
+                    sh "docker push ${imageName}"
+                }
+            }
+        }
+        stage('trigger deploy') {
             steps {
                 sh 'docker stop $(docker ps -a -q) || true'
                 sh 'docker rm $(docker ps -a -q) || true'

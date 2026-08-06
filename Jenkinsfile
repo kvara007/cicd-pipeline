@@ -38,15 +38,13 @@ pipeline {
             }
         }
         stage('trigger deploy') {
-            steps {
-                sh 'docker stop $(docker ps -a -q) || true'
-                sh 'docker rm $(docker ps -a -q) || true'
             script {
                 if (env.BRANCH_NAME == 'main') {
-                    sh 'docker run -d --expose 3000 -p 3000:3000 nodemain:v1.0'
+                    build job: 'Deploy_to_main', wait: false
                 }
-                else {
-                    sh 'docker run -d --expose 3001 -p 3001:3000 nodedev:v1.0'
+                else if {
+                    (env.BRANCH_NAME == 'main') {
+                        build job: "Deploy_to_dev", wait: false
                     }  
                 }
             }

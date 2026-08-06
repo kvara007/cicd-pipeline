@@ -5,7 +5,7 @@
 pipeline {
     agent any
     stages {
-        stage('Deploy main application') {
+        stage('Deploy app in dev branch') {
             steps {
                 script {
                     def containerName = 'node-dev-container'

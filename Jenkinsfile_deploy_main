@@ -16,7 +16,7 @@ pipeline {
                     }
                     sh "docker stop ${containerName} || true"
                     sh "docker rm ${containerName} || true"
-                    sh "docker run --name ${containerName} -d -p ${port} ${imageName}"
+                    sh "docker run --name ${containerName} -d -p ${port}:3000 ${imageName}"
                 }
             }
         }

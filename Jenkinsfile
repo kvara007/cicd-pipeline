@@ -7,6 +7,11 @@ pipeline {
                 checkout scm
             }
         }
+        stage('Dockerfile lint'){
+            steps {
+                sh "docker run --rm -i hadolint/hadolint < Dockerfile"
+            }
+        }
         stage('build') {
             steps {
                 sh 'chmod +x scripts/build.sh'

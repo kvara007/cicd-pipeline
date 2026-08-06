@@ -31,8 +31,9 @@ pipeline {
             steps {
                 script {
                     def imageName = env.BRANCH_NAME == 'main' ? 'nodemain:v1.0' : 'nodedev:v1.0'
-                    docker.withRegistry('', 'docker_creds')
-                    sh "docker push ${imageName}"
+                    docker.withRegistry('', 'docker_creds') {
+                        sh "docker push ${imageName}"
+                    }
                 }
             }
         }

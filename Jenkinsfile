@@ -6,6 +6,11 @@ pipeline {
     }
 }
    stages {
+        stage('Install docker') {
+            steps {
+                sh "apt get-update && apt-get install docker"
+            }
+        }
         stage('checkout') {
             steps {
                 checkout scm

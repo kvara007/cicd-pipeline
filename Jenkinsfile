@@ -55,6 +55,7 @@ pipeline {
             steps {
                 script {
                     def imageName = env.BRANCH_NAME == 'main' ? 'kvara007/nodemain:v1.0' : 'kvara007/nodedev:v1.0'
+                    sh "curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin v0.73.0"
                     sh "trivy image --exit-code 0 --cache-backend memory --severity LOW,MEDIUM,HIGH ${imageName}"
                 }
             }

@@ -8,7 +8,7 @@ pipeline {
    stages {
         stage('Install docker') {
             steps {
-                sh "apt-get update && apt-get install docker"
+                sh "apt update && apt install docker"
             }
         }
         stage('checkout') {

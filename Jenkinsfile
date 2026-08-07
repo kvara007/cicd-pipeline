@@ -1,14 +1,14 @@
 pipeline {
     agent {
     docker {
-        image 'node:16'
+        image 'node:20'
         args '-v /var/run/docker.sock:/var/run/docker.sock -u root'
     }
 }
    stages {
         stage('Install docker') {
             steps {
-                sh "apt update && apt install docker"
+                sh "apt-get update && apt-get install docker"
             }
         }
         stage('checkout') {
